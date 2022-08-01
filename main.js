@@ -1,32 +1,34 @@
-function total(arr) {
-    let newArr = arr.reduce((final,num)=>{
-        final += num;
-        return final;
-    });
-    return newArr;
-}
+// function total(arr) {
+//     let newArr = arr.reduce((final,num)=>{
+//         final += num;
+//         return final;
+//     });
+//     return newArr;
+// }
  
-console.log(total([1,2,3])); // 6
+// console.log(total([1,2,3])); // 6
  
-function stringConcat(arr) {
-    let newArr = arr.reduce((final, num)=>{
-        final += num;
-        return final
-    },'');
-    return newArr;
-}
+// function stringConcat(arr) {
+//     let newArr = arr.reduce((final, num)=>{
+//         final += num;
+//         return final
+//     },'');
+//     return newArr;
+// }
 
  
- console.log(stringConcat([1,2,3])); // "123"
+//  console.log(stringConcat([1,2,3])); // "123"
 
  function totalVotes(arr) {
-    let count = 0;
-    arr.forEach(i => {
-        if(i.voted){
-            count +=1;
+
+    let newArr = arr.reduce((accumulator, person)=>{
+        let voted =person.voted;
+        if(voted){
+         accumulator += 1;
         }
-    });
-    return count;
+        return accumulator;
+    },0);
+    return newArr;
  }
  
  var voters = [
@@ -99,31 +101,33 @@ function voterResults(arr) {
         numYoungVotes: 0,
         numYoungPeople: 0,
         numMidVotes: 0,
-        numMidsPeople: 0,
+        numMidPeople: 0,
         numOldVotes: 0,
-        numOldsPeople: 0
+        numOldPeople: 0
     };
 
-   arr.forEach((voter)=>{
+    return arr.reduce((acc, voter)=>{
         if(17<voter.age && voter.age<26){
-            final.numYoungPeople += 1;
+            acc.numYoungPeople += 1;
             if(voter.voted==true){
-                final.numYoungVotes += 1;
+                acc.numYoungVotes += 1;
             }
+            
         }else if(26<voter.age && voter.age<36){
-            final.numMidsPeople += 1;
+
+            acc.numMidPeople += 1;
             if(voter.voted==true){
-                final.numMidVotes += 1;
+                acc.numMidVotes += 1;
             }
         }else if(36<voter.age && voter.age<56){
-            final.numOldsPeople += 1;
+            acc.numOldPeople += 1;
             if(voter.voted==true){
-                final.numOldVotes += 1;
+                acc.numOldVotes += 1;
             }
         }
-   });
+        return acc;
+    }, final)
 
-   return final;
 }
 
 console.log(voterResults(voters)); // Returned value shown below:
